@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-30T00:00:00Z",
+  "title": "Design System: Isabelly Paiva — Portfólio",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "primary", "displayName": "Ink Black", "canonical": "#0a0a0a", "tonalRamp": ["#0a0a0a", "#1f1f1e", "#3a3a38", "#565654", "#737370", "#94948f", "#bdbdb7", "#e4e3dd"] },
+      "paper": { "role": "neutral", "displayName": "Warm Paper", "canonical": "#f6f5f2", "tonalRamp": ["#16150f", "#2c2a22", "#4a473c", "#6d695b", "#94907f", "#bdb9a8", "#dcd9cf", "#f6f5f2"] },
+      "tint": { "role": "neutral", "displayName": "Paper Tint", "canonical": "#ebe8e1", "tonalRamp": ["#16150f", "#2c2a22", "#4a473c", "#6d695b", "#94907f", "#c2bdaf", "#dcd8cd", "#ebe8e1"] },
+      "muted": { "role": "neutral", "displayName": "Stone Gray", "canonical": "#6b6b66", "tonalRamp": ["#14140f", "#2a2a24", "#41413a", "#585852", "#6b6b66", "#90908a", "#b8b8b1", "#e0e0d9"] },
+      "line": { "role": "neutral", "displayName": "Hairline", "canonical": "#d8d4cc", "tonalRamp": ["#1a1813", "#332f26", "#4e493c", "#6c6757", "#928c79", "#b8b2a1", "#d8d4cc", "#efece5"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display Serif", "purpose": "Título do hero e CTA gigante. Instrument Serif, frequentemente itálico." },
+      "headline": { "displayName": "Section Headline", "purpose": "Títulos de seção, palavra-chave final em itálico." },
+      "title": { "displayName": "Title Serif", "purpose": "Nomes de serviço, títulos de card/case, links." },
+      "body": { "displayName": "Body Sans", "purpose": "Parágrafos. Sans de sistema, desaparece de propósito." },
+      "label": { "displayName": "Mono Label", "purpose": "Metadado, navegação, índices. Mono uppercase tracking 0.16em." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-out-signature", "value": "cubic-bezier(0.2, 0.8, 0.2, 1)", "purpose": "Easing padrão para hovers, reveals e transições de estado." },
+      { "name": "reveal", "value": "opacity 1s + translateY(40px→0) cubic-bezier(0.2,0.8,0.2,1)", "purpose": "Entrada em cascata via IntersectionObserver (reveal-d2/d3/d4)." },
+      { "name": "theme-shift", "value": "background 0.6s ease, color 0.6s ease", "purpose": "Virada de luz entre seções claras e invertidas / troca de direção de tema." },
+      { "name": "marquee", "value": "scroll-x 40s–50s linear infinite", "purpose": "Loop horizontal do nome no hero e da faixa de marcas." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Section Label",
+      "kind": "custom",
+      "refersTo": "section-label",
+      "description": "Rótulo de seção em mono com traço inicial — a régua técnica que numera e nomeia cada bloco.",
+      "html": "<div class=\"ds-section-label\">03 — Vídeos / Trabalhos selecionados</div>",
+      "css": ".ds-section-label { display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6b66; } .ds-section-label::before { content: ''; width: 28px; height: 1px; background: currentColor; }"
+    },
+    {
+      "name": "Contact CTA Link",
+      "kind": "button",
+      "refersTo": "cta-link",
+      "description": "Ação primária do site: email em serifa gigante com borda inferior que se abre no hover. Não há botão preenchido.",
+      "html": "<a class=\"ds-cta-link\" href=\"#\">isabelly.paivaassessoria@gmail.com →</a>",
+      "css": ".ds-cta-link { display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(28px, 3.6vw, 56px); letter-spacing: -0.02em; color: #f6f5f2; border-bottom: 1px solid currentColor; padding-bottom: 4px; text-decoration: none; transition: padding-bottom 0.3s, color 0.3s, border-color 0.3s; } .ds-cta-link:hover { padding-bottom: 12px; } .ds-cta-link:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }"
+    },
+    {
+      "name": "Video Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Tile do mosaico assimétrico. Grayscale por padrão, cor + play mark no hover.",
+      "html": "<article class=\"ds-video-card\"><div class=\"ds-vc-idx\">01</div><div class=\"ds-vc-play\"><svg viewBox=\"0 0 14 14\" fill=\"currentColor\"><path d=\"M3 1.5 L12 7 L3 12.5 Z\"/></svg></div><div class=\"ds-vc-info\"><h3>@fleurity</h3><span>Reels</span></div></article>",
+      "css": ".ds-video-card { position: relative; aspect-ratio: 4/5; background: #ebe8e1; border-radius: 4px; overflow: hidden; display: flex; align-items: flex-end; padding: 20px; filter: grayscale(1) contrast(1.02); transition: filter 0.6s ease, transform 0.5s cubic-bezier(0.2,0.8,0.2,1); } .ds-video-card:hover { filter: grayscale(0) contrast(1); } .ds-vc-idx { position: absolute; top: 16px; left: 20px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6b66; } .ds-vc-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 56px; height: 56px; border-radius: 999px; border: 1px solid #6b6b66; display: flex; align-items: center; justify-content: center; opacity: 0.4; transition: opacity 0.4s, transform 0.5s cubic-bezier(0.2,0.8,0.2,1); } .ds-video-card:hover .ds-vc-play { opacity: 1; transform: translate(-50%,-50%) scale(1.1); } .ds-vc-play svg { width: 14px; height: 14px; } .ds-vc-info { font-family: 'Instrument Serif', serif; } .ds-vc-info h3 { margin: 0; font-size: 22px; letter-spacing: -0.02em; } .ds-vc-info span { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.7; }"
+    },
+    {
+      "name": "Service Row",
+      "kind": "custom",
+      "refersTo": "section-label",
+      "description": "Linha de serviço que desliza à direita no hover, com barra de acento de 8px crescendo na borda esquerda.",
+      "html": "<div class=\"ds-service-row\"><span class=\"ds-sr-num\">01</span><span class=\"ds-sr-name\">Estratégia de Conteúdo</span><span class=\"ds-sr-arrow\">→</span></div>",
+      "css": ".ds-service-row { position: relative; display: grid; grid-template-columns: 60px 1fr 60px; gap: 40px; align-items: center; padding: 28px 0; border-bottom: 1px solid #d8d4cc; transition: padding-left 0.4s cubic-bezier(0.2,0.8,0.2,1); } .ds-service-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #0a0a0a; transition: width 0.4s cubic-bezier(0.2,0.8,0.2,1); } .ds-service-row:hover { padding-left: 24px; } .ds-service-row:hover::before { width: 8px; } .ds-sr-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; color: #6b6b66; } .ds-sr-name { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 3.4vw, 48px); line-height: 1.05; letter-spacing: -0.02em; } .ds-sr-arrow { font-family: 'JetBrains Mono', monospace; font-size: 18px; text-align: right; transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1); } .ds-service-row:hover .ds-sr-arrow { transform: translateX(8px); }"
+    },
+    {
+      "name": "Testimonial Card",
+      "kind": "card",
+      "refersTo": "testimonial",
+      "description": "Card de depoimento com borda completa de 1px que ganha fundo tint e sobe 4px no hover.",
+      "html": "<div class=\"ds-test\"><p class=\"ds-test-quote\">Performance pesada, estética leve.</p><div class=\"ds-test-author\"><span class=\"ds-test-avatar\"></span><div><div class=\"ds-test-name\">Camila Rocha</div><div class=\"ds-test-role\">Marketing Lead · Volt</div></div></div></div>",
+      "css": ".ds-test { display: flex; flex-direction: column; gap: 24px; padding: 40px 32px; border: 1px solid #d8d4cc; border-radius: 4px; background: #f6f5f2; transition: background 0.4s, transform 0.5s cubic-bezier(0.2,0.8,0.2,1); } .ds-test:hover { background: #ebe8e1; transform: translateY(-4px); } .ds-test-quote { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 22px; line-height: 1.25; margin: 0; flex: 1; } .ds-test-quote::before { content: '“'; } .ds-test-quote::after { content: '”'; } .ds-test-author { display: flex; align-items: center; gap: 14px; padding-top: 20px; border-top: 1px solid #d8d4cc; } .ds-test-avatar { width: 40px; height: 40px; border-radius: 999px; background: #ebe8e1; background-image: repeating-linear-gradient(135deg, transparent 0, transparent 4px, rgba(10,10,10,0.08) 4px, rgba(10,10,10,0.08) 5px); flex-shrink: 0; } .ds-test-name { font-size: 14px; } .ds-test-role { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6b66; margin-top: 2px; }"
+    },
+    {
+      "name": "Metric (inverted)",
+      "kind": "custom",
+      "refersTo": "metric",
+      "description": "Número gigante numa seção invertida (fundo tinta), com expoente mono em super.",
+      "html": "<div class=\"ds-metric\"><div class=\"ds-metric-num\">+2,4<span class=\"ds-sup\">M</span></div><div class=\"ds-metric-label\">Views orgânicos gerados</div></div>",
+      "css": ".ds-metric { background: #0a0a0a; color: #f6f5f2; padding: 56px 24px 32px; } .ds-metric-num { font-family: 'Instrument Serif', serif; font-size: clamp(64px, 8vw, 130px); line-height: 0.9; letter-spacing: -0.04em; margin: 0 0 12px; } .ds-sup { font-size: 0.4em; vertical-align: super; margin-left: 0.1em; font-family: 'JetBrains Mono', monospace; } .ds-metric-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.7; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Director's Cut",
+    "overview": "Um portfólio que se comporta como sala de montagem: o material bruto (Reels, cases, números) entra em preto-e-branco e ganha cor quando você se aproxima. Tudo se move com intenção — marquees do nome ao fundo, títulos serifados que cortam a página, cursor custom que vira PLAY sobre os vídeos. A interface é o monitor; a obra é o filme. Sistema rigorosamente monocromático: papel quente e tinta quase-preta, porque a contenção é o argumento. A cor real está reservada para o trabalho, não para a interface. Seções inteiras invertem para preto como cortes secos de cena.",
+    "keyCharacteristics": [
+      "Monocromático: papel quente (#f6f5f2) + tinta (#0a0a0a), sem acento cromático ativo.",
+      "Tipografia editorial: Instrument Serif protagonista, JetBrains Mono para labels.",
+      "Grayscale por padrão, cor no hover — a obra acende sob atenção.",
+      "Flat: profundidade por camadas tonais, linhas de grid e inversões de seção, nunca sombra.",
+      "Movimento como assinatura: marquees, reveals em cascata, cursor custom, easing ease-out.",
+      "Três direções de tema permutáveis (Editorial · Swiss · Cinematic)."
+    ],
+    "rules": [
+      { "name": "The Monochrome Rule", "body": "A interface não tem cor. Papel e tinta apenas. A única cor vem das fotos e vídeos do trabalho — e só no hover.", "section": "colors" },
+      { "name": "The Reserved Accent Rule", "body": "Existe um único slot de acento reservado (--pink, hoje = tinta). Se introduzido, é único, quente, ≤5% da tela, só em hover/foco.", "section": "colors" },
+      { "name": "The Italic Emphasis Rule", "body": "Ênfase é o itálico da serifa de display, não negrito nem cor. Cada título de seção fecha numa palavra em itálico.", "section": "typography" },
+      { "name": "The Mono-Label Rule", "body": "Todo metadado é JetBrains Mono, 10–11px, uppercase, tracking 0.16em. Nunca serifa para metadado nem mono para leitura.", "section": "typography" },
+      { "name": "The No-Shadow Rule", "body": "Sombras são proibidas. Para destacar, troque a superfície, inverta a seção ou mova com transform. Sombra lê como SaaS 2014.", "section": "elevation" },
+      { "name": "The Grid-Line Rule", "body": "Estrutura é desenhada com traços de 1px (--line), não com caixas. Cards são a exceção, não a regra.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do manter tudo monocromático — papel (#f6f5f2) e tinta (#0a0a0a). A única cor vem da obra, e só no hover.",
+      "Do usar o itálico da Instrument Serif para ênfase; cada título fecha numa palavra em itálico.",
+      "Do desenhar estrutura com linhas de grid de 1px (--line), não com caixas.",
+      "Do colocar grayscale por padrão em toda mídia e revelar a cor no hover.",
+      "Do tratar metadado como régua mono: JetBrains Mono, uppercase, tracking 0.16em.",
+      "Do usar inversão de seção (fundo Ink) como corte de cena para Métricas e Contato.",
+      "Do animar com cubic-bezier(.2,.8,.2,1) (ease-out), sem bounce nem elastic.",
+      "Do garantir que o mobile (público vindo de Reels) tenha o mesmo impacto — testar títulos em clamp."
+    ],
+    "donts": [
+      "Don't introduzir cor de acento sem ser pelo único slot reservado, e mesmo assim ≤5% da tela, só em hover/foco.",
+      "Don't usar sombras (box-shadow). Profundidade é por camada tonal, linha ou inversão — sombra lê como SaaS 2014.",
+      "Don't cair no template genérico: nada de grade de cards idênticos icon+título+texto.",
+      "Don't parecer agência corporativa: sem azul corporativo, stock photos, cantos arredondados grandes.",
+      "Don't parecer influencer fofo: nada de pastel, emoji decorativo, serifa romântica fininha.",
+      "Don't parecer tech/SaaS: sem gradientes neon, template hero-métrica colorido, cara de dashboard.",
+      "Don't usar faixa lateral colorida (border-left > 1px) como acento — bordas completas de 1px, ou nenhuma.",
+      "Don't usar a serifa para metadado nem a mono para leitura de corpo. Cada fonte no seu papel."
+    ]
+  }
+}
