@@ -28,33 +28,79 @@ const SERVICE_LABELS = [
   'Elaboração de sites',
 ];
 
-const GE_GALLERY = ['01', '04', '11', '13'];
-const MARCELLE_GALLERY = ['03', '01', '06', '07', '05'];
+const GE_GALLERY = [
+  {
+    src: '/assets/food/ge-hq/01.jpeg',
+    alt: 'Bolo de chocolate com cobertura cremosa e morangos',
+  },
+  {
+    src: '/assets/food/ge-hq/02.jpeg',
+    alt: 'Fatia de bolo de chocolate com cobertura e morango',
+  },
+  {
+    src: '/assets/food/ge-hq/03.jpeg',
+    alt: 'Bolo caseiro com calda de doce de leite',
+  },
+  {
+    src: '/assets/food/ge-hq/04.jpg',
+    alt: 'Bolos caseiros com cobertura de chocolate',
+  },
+];
+
+const MARCELLE_GALLERY = [
+  {
+    src: '/assets/food/marcelle-hq/01.png',
+    alt: 'Salgado aberto mostrando o recheio cremoso',
+  },
+  {
+    src: '/assets/food/marcelle-hq/02.png',
+    alt: 'Salgado aberto diante de uma cesta e uma lata de refrigerante',
+  },
+  {
+    src: '/assets/food/marcelle-hq/03.png',
+    alt: 'Três salgados dourados em uma cesta de vime',
+  },
+  {
+    src: '/assets/food/marcelle-hq/04.png',
+    alt: 'Salgado de chocolate aberto entre duas mãos',
+  },
+  {
+    src: '/assets/food/marcelle-hq/05.png',
+    alt: 'Salgado dourado segurado sobre uma cesta',
+  },
+];
 
 function SectionArt({ number, alt, priority = false }) {
   return (
     <Image
       className="rf-art"
-      src={`/assets/food-reference/section-${number}-clean.webp`}
+      src={`/assets/food-reference/section-${number}-clean.png`}
       alt={alt}
       fill
       sizes="100vw"
       preload={priority}
-      quality={92}
+      unoptimized
     />
   );
 }
 
-function MobileGallery({ collection, images }) {
+function GalleryGrid({ collection, images }) {
   return (
-    <div className={`rf-mobile-gallery rf-mobile-gallery--${collection}`} aria-hidden="true">
-      {images.map((number, index) => (
-        <figure className="rf-mobile-gallery-item" key={`${collection}-${number}`}>
+    <div className={`rf-gallery-grid rf-gallery-grid--${collection}`}>
+      {images.map((image, index) => (
+        <figure className="rf-gallery-item" key={image.src}>
           <Image
-            src={`/assets/food/${collection}/${number}.webp`}
-            alt=""
+            src={image.src}
+            alt={image.alt}
             fill
-            sizes="(max-width: 560px) 50vw, 1px"
+            sizes={
+              collection === 'ge'
+                ? '(max-width: 560px) 75vw, 45vw'
+                : index === images.length - 1
+                  ? '(max-width: 560px) 92vw, 34vw'
+                  : '(max-width: 560px) 46vw, 34vw'
+            }
+            quality={95}
           />
           <span>{String(index + 1).padStart(2, '0')}</span>
         </figure>
@@ -213,6 +259,7 @@ function MarcelleCase() {
             width={856}
             height={512}
             sizes="(max-width: 560px) 56vw, (max-width: 900px) 46vw, 26vw"
+            unoptimized
           />
         </h2>
         <h3 className="rf-case-heading rf-reveal rf-delay-2">Identidade visual</h3>
@@ -256,6 +303,7 @@ function GeCase() {
             width={900}
             height={470}
             sizes="(max-width: 560px) 72vw, (max-width: 900px) 42vw, 26vw"
+            unoptimized
           />
         </h2>
         <h3 className="rf-case-heading rf-reveal rf-delay-2">Identidade visual</h3>
@@ -304,20 +352,11 @@ function DarkGallery() {
       id="galeria-ge"
       aria-labelledby="rf-gallery-dark-title"
     >
-      <SectionArt number="07" alt="Galeria com quatro fotografias de bolos caseiros" />
-      <MobileGallery collection="ge" images={GE_GALLERY} />
+      <GalleryGrid collection="ge" images={GE_GALLERY} />
       <h2 className="rf-gallery-title rf-gallery-title--dark rf-reveal" id="rf-gallery-dark-title">
         <span />
         Galeria fotográfica
       </h2>
-      {['01', '02', '03', '04'].map((number, index) => (
-        <span
-          className={`rf-gallery-number rf-gallery-number--dark rf-gallery-number--d${index + 1}`}
-          key={number}
-        >
-          {number}
-        </span>
-      ))}
     </section>
   );
 }
@@ -329,19 +368,10 @@ function LightGallery() {
       id="galeria-marcelle"
       aria-labelledby="rf-gallery-light-title"
     >
-      <SectionArt number="08" alt="Galeria com cinco fotografias de salgados recheados" />
-      <MobileGallery collection="marcelle" images={MARCELLE_GALLERY} />
+      <GalleryGrid collection="marcelle" images={MARCELLE_GALLERY} />
       <h2 className="rf-gallery-title rf-gallery-title--light rf-reveal" id="rf-gallery-light-title">
         Galeria fotográfica
       </h2>
-      {['01', '02', '03', '04', '05'].map((number, index) => (
-        <span
-          className={`rf-gallery-number rf-gallery-number--light rf-gallery-number--l${index + 1}`}
-          key={number}
-        >
-          {number}
-        </span>
-      ))}
     </section>
   );
 }
