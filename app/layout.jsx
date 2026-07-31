@@ -1,22 +1,39 @@
 import './globals.css';
+import { Caveat, Instrument_Sans, Instrument_Serif } from 'next/font/google';
 
 export const metadata = {
-  title: 'Isabelly Paiva — Marketing Digital',
+  title: 'Paiva & Co.',
+  description:
+    'Estratégia, identidade visual, fotografia gastronômica e presença digital.',
 };
+
+const instrumentSans = Instrument_Sans({
+  subsets: ['latin'],
+  variable: '--font-gp-sans',
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  variable: '--font-gp-serif',
+  display: 'swap',
+  weight: '400',
+});
+
+const caveat = Caveat({
+  subsets: ['latin'],
+  variable: '--font-gp-hand',
+  display: 'swap',
+});
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Caveat:wght@500;600;700&family=Cherry+Bomb+One&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,0..100,0..1&family=Instrument+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Italianno&family=JetBrains+Mono:wght@300;400;500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang="pt-BR"
+      className={`${instrumentSans.variable} ${instrumentSerif.variable} ${caveat.variable}`}
+    >
       <body>
-        <div id="root">{children}</div>
+        {children}
       </body>
     </html>
   );

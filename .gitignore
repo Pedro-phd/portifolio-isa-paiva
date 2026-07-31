@@ -11,6 +11,7 @@
 # local source material and browser audit artifacts
 /uploads
 /tmp
+/ref/fotos_galeria.zip
 
 # misc
 .DS_Store
