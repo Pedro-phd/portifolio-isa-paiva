@@ -5,6 +5,7 @@ import {
   ListBulletsIcon,
   MagnifyingGlassIcon,
 } from '@phosphor-icons/react/ssr';
+import FoodMotion from '@/components/food-motion';
 import styles from './food.module.css';
 
 const ASSET_ROOT = '/assets/food-hero-generated';
@@ -163,7 +164,7 @@ export const metadata = {
 
 export default function FoodPage() {
   return (
-    <main className={styles.page}>
+    <FoodMotion className={styles.page}>
       <section className={styles.hero} aria-labelledby="food-hero-title">
         <Image
           className={styles.paper}
@@ -689,6 +690,6 @@ export default function FoodPage() {
           </div>
         </div>
       </section>
-    </main>
+    </FoodMotion>
   );
 }

@@ -3,6 +3,12 @@
   --food-ink: #262625;
   --food-taupe: #a58e78;
   --food-line: #bfae9d;
+  --food-ease-out: cubic-bezier(.16, 1, .3, 1);
+  --food-ease-soft: cubic-bezier(.33, 1, .68, 1);
+  --food-ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --food-px: 0px;
+  --food-py: 0px;
+  --food-delay: 0ms;
   width: 100%;
   height: 100svh;
   height: 100dvh;
@@ -2028,5 +2034,767 @@
 @media (prefers-reduced-motion: reduce) {
   .page {
     scroll-behavior: auto;
+  }
+}
+
+/* ─── motion ──────────────────────────────────────────────────────────
+   Só transform / opacity / filter / clip-path: nenhuma regra abaixo
+   altera geometria, fluxo ou posicionamento do layout.
+   ------------------------------------------------------------------ */
+
+@keyframes foodPaperDrift {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+
+@keyframes foodDropIn {
+  from { opacity: 0; transform: translate3d(0, -7%, 0) scale(1.05); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes foodRiseIn {
+  from { opacity: 0; transform: translate3d(0, 9%, 0) scale(1.04); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes foodSlideInLeft {
+  from { opacity: 0; transform: translate3d(-12%, 0, 0) scale(1.03); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes foodSlideInRight {
+  from { opacity: 0; transform: translate3d(12%, 0, 0) scale(1.03); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes foodFadeUp {
+  from { opacity: 0; transform: translate3d(0, 28px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes foodWordUp {
+  from { opacity: 0; transform: translate3d(0, .36em, 0) scale(.97); filter: blur(7px); }
+  to { opacity: 1; transform: none; filter: blur(0); }
+}
+
+@keyframes foodPopIn {
+  0% { opacity: 0; transform: scale(.55); }
+  70% { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes foodBadgeIn {
+  from { opacity: 0; transform: scale(.5) rotate(-40deg); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes foodLineX {
+  from { opacity: 0; transform: scaleX(0); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes foodDotPulse {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -5px, 0) scale(1.14); }
+}
+
+@keyframes foodFloat {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -9px, 0); }
+}
+
+@keyframes foodFloatTilt {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to { transform: translate3d(0, -12px, 0) rotate(2.5deg); }
+}
+
+@keyframes foodBreathe {
+  from { transform: scale(1); }
+  to { transform: scale(1.022); }
+}
+
+@keyframes foodSpinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes foodRingPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.045); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ── hero: entra no load, sem depender de JS ── */
+
+  .hero .paper {
+    animation: foodPaperDrift 20s var(--food-ease-in-out) infinite alternate;
+  }
+
+  .topArrangement {
+    --food-depth: 1.2;
+    animation: foodDropIn 1150ms var(--food-ease-out) both;
+  }
+
+  .bottomArrangement {
+    --food-depth: -.9;
+    animation: foodRiseIn 1250ms var(--food-ease-out) 100ms both;
+  }
+
+  .desktopLeftArrangement {
+    --food-depth: .85;
+    animation: foodSlideInLeft 1300ms var(--food-ease-out) 80ms both;
+  }
+
+  .desktopRightArrangement {
+    --food-depth: -.85;
+    animation: foodSlideInRight 1300ms var(--food-ease-out) 180ms both;
+  }
+
+  .topArrangement,
+  .bottomArrangement,
+  .desktopLeftArrangement,
+  .desktopRightArrangement {
+    translate:
+      calc(var(--food-px) * var(--food-depth, 1))
+      calc(var(--food-py) * var(--food-depth, 1));
+    transition: translate 750ms var(--food-ease-out);
+  }
+
+  .dots span {
+    animation:
+      foodPopIn 620ms var(--food-ease-out) both,
+      foodDotPulse 2.6s var(--food-ease-in-out) infinite;
+  }
+
+  .dots span:nth-child(1) { animation-delay: 380ms, 1.3s; }
+  .dots span:nth-child(2) { animation-delay: 470ms, 1.42s; }
+  .dots span:nth-child(3) { animation-delay: 560ms, 1.54s; }
+
+  .copy {
+    translate: calc(var(--food-px) * -.4) calc(var(--food-py) * -.4);
+    transition: translate 900ms var(--food-ease-out);
+  }
+
+  .kicker {
+    animation: foodFadeUp 900ms var(--food-ease-out) 180ms both;
+  }
+
+  .kicker span {
+    animation: foodLineX 1100ms var(--food-ease-out) 420ms both;
+  }
+
+  .kicker span:first-child { transform-origin: right center; }
+  .kicker span:last-child { transform-origin: left center; }
+
+  .title span {
+    animation: foodWordUp 1100ms var(--food-ease-out) 300ms both;
+  }
+
+  .title strong {
+    animation: foodWordUp 1100ms var(--food-ease-out) 430ms both;
+  }
+
+  .year {
+    animation:
+      foodBadgeIn 1000ms var(--food-ease-out) 720ms both,
+      foodFloat 4.5s var(--food-ease-in-out) 1.8s infinite alternate;
+  }
+
+  .lede {
+    animation: foodFadeUp 1000ms var(--food-ease-out) 640ms both;
+  }
+
+  /* ── revelação por seção (entra e sai conforme o scroll-snap) ── */
+
+  .page[data-food-motion='ready'] :is(
+    .aboutEyebrow,
+    .aboutCopy > p,
+    .aboutSkills h3,
+    .aboutSkills li,
+    .aboutSoftware p,
+    .identityServices li,
+    .brandCaseText h2,
+    .brandCaseText p,
+    .brandPalette h3,
+    .geCaseText h2,
+    .geCaseText p,
+    .gePalette h3,
+    .photographyDetails span,
+    .deliveryDescription,
+    .deliveryHeading,
+    .deliveryFeature,
+    .deliveryFooter p,
+    .siteCtaCopy p
+  ) {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    transition:
+      opacity 620ms var(--food-ease-out),
+      transform 880ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] :is(
+    .aboutEyebrow,
+    .aboutCopy > p,
+    .aboutSkills h3,
+    .aboutSkills li,
+    .aboutSoftware p,
+    .identityServices li,
+    .brandCaseText h2,
+    .brandCaseText p,
+    .brandPalette h3,
+    .geCaseText h2,
+    .geCaseText p,
+    .gePalette h3,
+    .photographyDetails span,
+    .deliveryDescription,
+    .deliveryHeading,
+    .deliveryFeature,
+    .deliveryFooter p,
+    .siteCtaCopy p
+  ) {
+    opacity: 1;
+    transform: none;
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  /* títulos: palavra a palavra, com desfoque */
+
+  .page[data-food-motion='ready'] :is(
+    .aboutCopy h2,
+    .identityTitle span,
+    .identityTitle strong,
+    .photographyCopy h2 span,
+    .photographyCopy h2 strong,
+    .deliveryCopy h2 span,
+    .siteCtaCopy h2 span,
+    .siteCtaCopy h2 em,
+    .deliveryBrand,
+    .siteCtaBrand,
+    .aboutWordmark,
+    .aboutMonogram
+  ) {
+    opacity: 0;
+    transform: translate3d(0, .34em, 0) scale(.97);
+    filter: blur(7px);
+    transition:
+      opacity 640ms var(--food-ease-out),
+      transform 1000ms var(--food-ease-out),
+      filter 760ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] :is(
+    .aboutCopy h2,
+    .identityTitle span,
+    .identityTitle strong,
+    .photographyCopy h2 span,
+    .photographyCopy h2 strong,
+    .deliveryCopy h2 span,
+    .siteCtaCopy h2 span,
+    .siteCtaCopy h2 em,
+    .deliveryBrand,
+    .siteCtaBrand,
+    .aboutWordmark,
+    .aboutMonogram
+  ) {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  /* entram pela lateral */
+
+  .page[data-food-motion='ready'] :is(
+    .brandCaseProject,
+    .geCaseProject,
+    .brandCaseLogo,
+    .geCaseLogo,
+    .identityLabel
+  ) {
+    opacity: 0;
+    transform: translate3d(-34px, 0, 0);
+    transition:
+      opacity 640ms var(--food-ease-out),
+      transform 940ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] :is(
+    .brandCaseProject,
+    .geCaseProject,
+    .brandCaseLogo,
+    .geCaseLogo,
+    .identityLabel
+  ) {
+    opacity: 1;
+    transform: none;
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  /* pastilhas, swatches e ícones */
+
+  .page[data-food-motion='ready'] :is(
+    .brandCasePill,
+    .geCasePill,
+    .deliveryPill,
+    .brandPalette span,
+    .gePalette span,
+    .aboutDots span,
+    .photographyDetails i,
+    .aboutFooter i,
+    .deliveryDivider i,
+    .photographyCross,
+    .photographyCircle
+  ) {
+    opacity: 0;
+    transform: scale(.6);
+    transition:
+      opacity 480ms var(--food-ease-out),
+      transform 700ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] :is(
+    .brandCasePill,
+    .geCasePill,
+    .deliveryPill,
+    .brandPalette span,
+    .gePalette span,
+    .aboutDots span,
+    .photographyDetails i,
+    .aboutFooter i,
+    .deliveryDivider i,
+    .photographyCross,
+    .photographyCircle
+  ) {
+    opacity: 1;
+    transform: none;
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  /* filetes: crescem a partir da origem */
+
+  .page[data-food-motion='ready'] :is(
+    .aboutBrandLine,
+    .aboutRule,
+    .aboutSmallRule,
+    .aboutFooter span,
+    .identityServices li > span,
+    .deliveryDivider span,
+    .deliveryCopy h2 em::after
+  ) {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition:
+      opacity 380ms var(--food-ease-out),
+      transform 820ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] :is(
+    .identityServices li > span,
+    .deliveryDivider span:nth-child(1),
+    .aboutFooter span:nth-child(1)
+  ) {
+    transform-origin: center;
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] :is(
+    .aboutBrandLine,
+    .aboutRule,
+    .aboutSmallRule,
+    .aboutFooter span,
+    .identityServices li > span,
+    .deliveryDivider span,
+    .deliveryCopy h2 em::after
+  ) {
+    opacity: 1;
+    transform: none;
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  .page[data-food-motion='ready'] :is(
+    .identitySideLine,
+    .photographyTopLine
+  ) {
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition:
+      opacity 380ms var(--food-ease-out),
+      transform 820ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] :is(
+    .identitySideLine,
+    .photographyTopLine
+  ) {
+    opacity: 1;
+    transform: none;
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  /* peças grandes de arte */
+
+  .page[data-food-motion='ready'] :is(
+    .aboutPortrait,
+    .aboutPolaroids,
+    .brandBlobTop,
+    .brandProductCards img,
+    .brandMerchandise,
+    .geShowcase,
+    .photographyCamera,
+    .photographyDesktopScene,
+    .siteCtaDesktopScene,
+    .deliveryPhonesLayer img,
+    .siteMonitorLayer img
+  ) {
+    opacity: 0;
+    transform: translate3d(0, 5%, 0) scale(.95);
+    transition:
+      opacity 720ms var(--food-ease-out),
+      transform 1050ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] .aboutPortrait {
+    transform: translate3d(-6%, 0, 0) scale(.97);
+  }
+
+  .page[data-food-motion='ready'] .brandBlobTop {
+    transform: translate3d(0, -22%, 0) scale(.8);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] :is(
+    .aboutPortrait,
+    .aboutPolaroids,
+    .brandBlobTop,
+    .brandProductCards img,
+    .brandMerchandise,
+    .geShowcase,
+    .photographyCamera,
+    .photographyDesktopScene,
+    .siteCtaDesktopScene,
+    .deliveryPhonesLayer img,
+    .siteMonitorLayer img
+  ) {
+    opacity: 1;
+    transform: none;
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  /* faixa da fotografia: revelação em cortina */
+
+  .page[data-food-motion='ready'] .photographyBand {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transition:
+      opacity 320ms linear,
+      clip-path 1000ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] .photographyBand {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  /* moldura da seção Gê Sabores */
+
+  .page[data-food-motion='ready'] .geCase::after {
+    opacity: 0;
+    transform: scale(1.015);
+    transition:
+      opacity 700ms var(--food-ease-out),
+      transform 1000ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] .geCase[data-food-active]::after {
+    opacity: 1;
+    transform: none;
+    transition-delay: 340ms;
+  }
+
+  /* galerias: mosaico em cascata diagonal */
+
+  .page[data-food-motion='ready'] .foodGalleryImage {
+    opacity: 0;
+    transform: scale(1.18);
+    transition:
+      opacity 620ms var(--food-ease-out),
+      transform 900ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] .foodGalleryImage {
+    opacity: 1;
+    transform: none;
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  /* ── cadência dos stagger ── */
+
+  .page .aboutWordmark { --food-delay: 60ms; }
+  .page .aboutBrandLine { --food-delay: 200ms; }
+  .page .aboutMonogram { --food-delay: 300ms; }
+  .page .aboutPortrait { --food-delay: 80ms; }
+  .page .aboutDots span:nth-child(1) { --food-delay: 320ms; }
+  .page .aboutDots span:nth-child(2) { --food-delay: 400ms; }
+  .page .aboutDots span:nth-child(3) { --food-delay: 480ms; }
+  .page .aboutEyebrow { --food-delay: 240ms; }
+  .page .aboutCopy h2 { --food-delay: 320ms; }
+  .page .aboutRule { --food-delay: 420ms; }
+  .page .aboutCopy > p:nth-of-type(2) { --food-delay: 440ms; }
+  .page .aboutCopy > p:nth-of-type(3) { --food-delay: 520ms; }
+  .page .aboutSkills h3 { --food-delay: 460ms; }
+  .page .aboutSmallRule { --food-delay: 520ms; }
+  .page .aboutSkills li:nth-child(1) { --food-delay: 560ms; }
+  .page .aboutSkills li:nth-child(2) { --food-delay: 620ms; }
+  .page .aboutSkills li:nth-child(3) { --food-delay: 680ms; }
+  .page .aboutSkills li:nth-child(4) { --food-delay: 740ms; }
+  .page .aboutSoftware p { --food-delay: 800ms; }
+  .page .aboutPolaroids { --food-delay: 460ms; }
+  .page .aboutFooter span:nth-child(1) { --food-delay: 640ms; }
+  .page .aboutFooter i { --food-delay: 720ms; }
+  .page .aboutFooter span:nth-child(3) { --food-delay: 640ms; }
+
+  .page .identityLabel { --food-delay: 80ms; }
+  .page .identitySideLine { --food-delay: 220ms; }
+  .page .identityTitle span:nth-child(1) { --food-delay: 120ms; }
+  .page .identityTitle span:nth-child(2) { --food-delay: 220ms; }
+  .page .identityTitle strong { --food-delay: 320ms; }
+  .page .identityServices li:nth-child(1) { --food-delay: 440ms; }
+  .page .identityServices li:nth-child(2) { --food-delay: 510ms; }
+  .page .identityServices li:nth-child(3) { --food-delay: 580ms; }
+  .page .identityServices li:nth-child(4) { --food-delay: 650ms; }
+  .page .identityServices li:nth-child(5) { --food-delay: 720ms; }
+  .page .identityServices li:nth-child(6) { --food-delay: 790ms; }
+  .page .identityServices li:nth-child(7) { --food-delay: 860ms; }
+
+  .page .brandBlobTop { --food-delay: 60ms; }
+  .page .brandCasePill { --food-delay: 120ms; }
+  .page .brandCaseProject { --food-delay: 200ms; }
+  .page .brandCaseLogo { --food-delay: 280ms; }
+  .page .brandCaseText h2 { --food-delay: 420ms; }
+  .page .brandCaseText p { --food-delay: 490ms; }
+  .page .brandPalette h3 { --food-delay: 560ms; }
+  .page .brandPalette span:nth-child(1) { --food-delay: 620ms; }
+  .page .brandPalette span:nth-child(2) { --food-delay: 690ms; }
+  .page .brandPalette span:nth-child(3) { --food-delay: 760ms; }
+  .page .brandPalette span:nth-child(4) { --food-delay: 830ms; }
+  .page .brandProductCards img:nth-child(1) { --food-delay: 240ms; }
+  .page .brandProductCards img:nth-child(2) { --food-delay: 340ms; }
+  .page .brandProductCards img:nth-child(3) { --food-delay: 440ms; }
+  .page .brandMerchandise { --food-delay: 320ms; }
+
+  .page .geCasePill { --food-delay: 120ms; }
+  .page .geCaseProject { --food-delay: 200ms; }
+  .page .geCaseLogo { --food-delay: 280ms; }
+  .page .geCaseText h2 { --food-delay: 420ms; }
+  .page .geCaseText p { --food-delay: 490ms; }
+  .page .gePalette h3 { --food-delay: 560ms; }
+  .page .gePalette span:nth-child(1) { --food-delay: 620ms; }
+  .page .gePalette span:nth-child(2) { --food-delay: 690ms; }
+  .page .gePalette span:nth-child(3) { --food-delay: 760ms; }
+  .page .gePalette span:nth-child(4) { --food-delay: 830ms; }
+  .page .gePalette span:nth-child(5) { --food-delay: 900ms; }
+  .page .geShowcase { --food-delay: 260ms; }
+
+  .page .photographyDesktopScene { --food-delay: 60ms; }
+  .page .photographyCamera { --food-delay: 60ms; }
+  .page .photographyTopLine { --food-delay: 180ms; }
+  .page .photographyCopy h2 span { --food-delay: 200ms; }
+  .page .photographyCopy h2 strong { --food-delay: 320ms; }
+  .page .photographyBand { --food-delay: 480ms; }
+  .page .photographyDetails span:nth-child(1) { --food-delay: 660ms; }
+  .page .photographyDetails i:nth-child(2) { --food-delay: 700ms; }
+  .page .photographyDetails span:nth-child(3) { --food-delay: 740ms; }
+  .page .photographyDetails i:nth-child(4) { --food-delay: 780ms; }
+  .page .photographyDetails span:nth-child(5) { --food-delay: 820ms; }
+  .page .photographyCircle { --food-delay: 420ms; }
+  .page .photographyCross { --food-delay: 560ms; }
+
+  .page .foodGalleryItem:nth-child(1) .foodGalleryImage { --food-delay: 40ms; }
+  .page .foodGalleryItem:nth-child(2) .foodGalleryImage { --food-delay: 110ms; }
+  .page .foodGalleryItem:nth-child(3) .foodGalleryImage { --food-delay: 180ms; }
+  .page .foodGalleryItem:nth-child(4) .foodGalleryImage { --food-delay: 110ms; }
+  .page .foodGalleryItem:nth-child(5) .foodGalleryImage { --food-delay: 180ms; }
+  .page .foodGalleryItem:nth-child(6) .foodGalleryImage { --food-delay: 250ms; }
+  .page .foodGalleryItem:nth-child(7) .foodGalleryImage { --food-delay: 180ms; }
+  .page .foodGalleryItem:nth-child(8) .foodGalleryImage { --food-delay: 250ms; }
+  .page .foodGalleryItem:nth-child(9) .foodGalleryImage { --food-delay: 320ms; }
+
+  .page .deliveryBrand { --food-delay: 60ms; }
+  .page .deliveryPill { --food-delay: 180ms; }
+  .page .deliveryCopy h2 span:nth-child(1) { --food-delay: 260ms; }
+  .page .deliveryCopy h2 span:nth-child(2) { --food-delay: 340ms; }
+  .page .deliveryCopy h2 span:nth-child(3) { --food-delay: 420ms; }
+  .page .deliveryCopy h2 em::after { --food-delay: 780ms; }
+  .page .deliveryDescription { --food-delay: 520ms; }
+  .page .deliveryPhonesLayer img { --food-delay: 300ms; }
+  .page .deliveryHeading { --food-delay: 560ms; }
+  .page .deliveryFeature:nth-child(1) { --food-delay: 620ms; }
+  .page .deliveryFeature:nth-child(2) { --food-delay: 690ms; }
+  .page .deliveryFeature:nth-child(3) { --food-delay: 760ms; }
+  .page .deliveryFeature:nth-child(4) { --food-delay: 830ms; }
+  .page .deliveryDivider span:nth-child(1) { --food-delay: 860ms; }
+  .page .deliveryDivider i { --food-delay: 920ms; }
+  .page .deliveryDivider span:nth-child(3) { --food-delay: 860ms; }
+  .page .deliveryFooter p { --food-delay: 960ms; }
+
+  .page .siteCtaDesktopScene { --food-delay: 40ms; }
+  .page .siteCtaBrand { --food-delay: 140ms; }
+  .page .siteCtaCopy h2 span { --food-delay: 260ms; }
+  .page .siteCtaCopy h2 em { --food-delay: 360ms; }
+  .page .siteCtaCopy p { --food-delay: 480ms; }
+  .page .siteMonitorLayer img { --food-delay: 320ms; }
+
+  /* ── laços ambientes na seção ativa ── */
+
+  .page [data-food-active] .paper {
+    animation: foodPaperDrift 22s var(--food-ease-in-out) infinite alternate;
+  }
+
+  .page [data-food-active] .aboutDots span {
+    animation: foodDotPulse 2.6s var(--food-ease-in-out) 1.1s infinite;
+  }
+
+  .page [data-food-active] .aboutDots span:nth-child(2) { animation-delay: 1.24s; }
+  .page [data-food-active] .aboutDots span:nth-child(3) { animation-delay: 1.38s; }
+
+  .page [data-food-active] .aboutPortrait {
+    animation: foodFloat 8s var(--food-ease-in-out) 1.3s infinite alternate;
+  }
+
+  .page [data-food-active] .aboutPolaroids {
+    animation: foodFloatTilt 9.5s var(--food-ease-in-out) 1.6s infinite alternate;
+  }
+
+  .page [data-food-active] :is(.aboutFooter i, .deliveryDivider i) {
+    animation: foodSpinSlow 22s linear 1.4s infinite;
+  }
+
+  .page [data-food-active] .brandBlobTop {
+    animation: foodFloatTilt 8.5s var(--food-ease-in-out) 1.2s infinite alternate;
+  }
+
+  .page [data-food-active] :is(.brandCasePill, .geCasePill, .deliveryPill) {
+    animation: foodRingPulse 3.4s var(--food-ease-in-out) 1.5s infinite;
+  }
+
+  .page [data-food-active] .deliveryPill::before {
+    animation: foodDotPulse 2.2s var(--food-ease-in-out) 1.6s infinite;
+  }
+
+  .page [data-food-active] :is(
+    .brandMerchandise img,
+    .geShowcase img
+  ) {
+    animation: foodBreathe 11s var(--food-ease-in-out) 1.4s infinite alternate;
+  }
+
+  .page [data-food-active] :is(
+    .photographyCamera,
+    .photographyDesktopScene,
+    .deliveryPhonesLayer img,
+    .siteMonitorLayer img,
+    .siteCtaDesktopScene
+  ) {
+    animation: foodBreathe 7.5s var(--food-ease-in-out) 1.6s infinite alternate;
+  }
+
+  .page [data-food-active] .photographyCircle {
+    animation: foodRingPulse 9s var(--food-ease-in-out) 1.5s infinite;
+  }
+
+  .page [data-food-active] .photographyCross {
+    animation: foodSpinSlow 30s linear 1.5s infinite;
+  }
+
+  /* ── parallax de ponteiro nas peças de arte ── */
+
+  .page .aboutPortrait { --food-depth: .8; }
+  .page .aboutPolaroids { --food-depth: -1.3; }
+  .page .brandBlobTop { --food-depth: 1.6; }
+  .page .brandProductCards { --food-depth: -.5; }
+  .page .brandMerchandise { --food-depth: .4; }
+  .page .geShowcase { --food-depth: .5; }
+  .page .photographyCamera { --food-depth: 1.1; }
+  .page .photographyCircle { --food-depth: -1.4; }
+  .page .photographyCross { --food-depth: 1.5; }
+  .page .deliveryPhonesLayer { --food-depth: .9; }
+  .page .siteMonitorLayer { --food-depth: .8; }
+
+  .page :is(
+    .aboutPortrait,
+    .aboutPolaroids,
+    .brandBlobTop,
+    .brandProductCards,
+    .brandMerchandise,
+    .geShowcase,
+    .photographyCamera,
+    .photographyCircle,
+    .photographyCross,
+    .deliveryPhonesLayer,
+    .siteMonitorLayer
+  ) {
+    translate:
+      calc(var(--food-px) * var(--food-depth, 1))
+      calc(var(--food-py) * var(--food-depth, 1));
+    transition: translate 800ms var(--food-ease-out);
+  }
+
+  .page .photographyDesktopScene {
+    --food-depth: .7;
+    translate:
+      calc(-50% + var(--food-px) * var(--food-depth))
+      calc(-50% + var(--food-py) * var(--food-depth));
+    transition: translate 800ms var(--food-ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+  .page[data-food-motion='ready'] [data-food-active] .foodGalleryItem .foodGalleryImage {
+    transition:
+      opacity 560ms var(--food-ease-out),
+      transform 520ms var(--food-ease-out);
+    transition-delay: var(--food-delay, 0ms);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] .foodGalleryItem:hover .foodGalleryImage {
+    transform: scale(1.07);
+    transition-delay: 0ms;
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] :is(
+    .brandPalette span,
+    .gePalette span
+  ):hover {
+    transform: translate3d(0, -8px, 0) scale(1.08);
+    transition-duration: 380ms;
+    transition-delay: 0ms;
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] .identityServices li:hover {
+    transform: translate3d(0, -7px, 0);
+    transition-duration: 380ms;
+    transition-delay: 0ms;
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] .deliveryFeature:hover {
+    transform: translate3d(0, -6px, 0);
+    transition-duration: 380ms;
+    transition-delay: 0ms;
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] .brandProductCards img:hover {
+    transform: translate3d(0, -10px, 0) scale(1.03);
+    transition-duration: 380ms;
+    transition-delay: 0ms;
+  }
+
+  .deliveryIcon {
+    transition: transform 420ms var(--food-ease-out);
+  }
+
+  .page[data-food-motion='ready'] [data-food-active] .deliveryFeature:hover .deliveryIcon {
+    transform: scale(1.12) rotate(-4deg);
   }
 }
