@@ -589,6 +589,10 @@
   height: auto;
 }
 
+.siteCtaDesktopScene {
+  display: none;
+}
+
 .photographyCamera {
   position: absolute;
   inset: 6% auto auto -10%;
@@ -598,6 +602,10 @@
   height: auto;
   pointer-events: none;
   user-select: none;
+}
+
+.photographyDesktopScene {
+  display: none;
 }
 
 .photographyCopy {
@@ -1422,9 +1430,49 @@
   }
 
   .siteCtaCanvas {
-    inset: 0 auto 0 50%;
-    width: 56.28dvh;
-    translate: -50% 0;
+    inset: 0;
+    width: 100%;
+    translate: none;
+  }
+
+  .siteCtaDesktopScene {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .siteMonitorLayer {
+    display: none;
+  }
+
+  .siteCta {
+    background: #f7eee6;
+  }
+
+  .siteCtaBrand {
+    inset-block-start: 5.5%;
+    font-size: clamp(38px, 3vw, 48px);
+  }
+
+  .siteCtaCopy {
+    inset-block-start: 13.5%;
+  }
+
+  .siteCtaCopy h2 {
+    font-size: clamp(54px, 4vw, 70px);
+    line-height: .94;
+  }
+
+  .siteCtaCopy p {
+    margin-top: 28px;
+    font-size: clamp(16px, 1.2vw, 20px);
   }
 
   .deliveryPhonesLayer {
@@ -1441,10 +1489,14 @@
   }
 
   .foodGalleryGrid {
-    inset: 0 auto 0 50%;
-    width: 56.28dvh;
+    inset: 3dvh auto 3dvh 50%;
+    width: 70vw;
+    height: 94dvh;
     gap: 6px;
     padding: 7px;
+    overflow: hidden;
+    border-radius: 28px;
+    box-shadow: 0 20px 55px rgb(64 46 31 / .09);
     translate: -50% 0;
   }
 
@@ -1802,20 +1854,36 @@
   }
 
   .photographyCamera {
-    inset: auto -3vw -30vh auto;
-    width: 50vw;
-    height: auto;
+    display: none;
+  }
+
+  .photography {
+    background: #f7eee6;
+  }
+
+  .photographyDesktopScene {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    z-index: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    pointer-events: none;
+    user-select: none;
+    translate: -50% -50%;
   }
 
   .photographyCopy {
-    inset: 17vh auto auto 5vw;
-    width: 57vw;
+    inset: 14vh auto auto 5vw;
+    width: 55vw;
     text-align: left;
   }
 
   .photographyCopy h2 {
-    font-size: clamp(78px, 8vw, 142px);
-    line-height: .82;
+    font-size: clamp(72px, 6vw, 108px);
+    line-height: .86;
   }
 
   .photographyCopy h2 strong {
@@ -1823,7 +1891,7 @@
   }
 
   .photographyBand {
-    width: min(48vw, 820px);
+    width: min(43vw, 720px);
     margin-top: 5vh;
     padding: 16px 24px 14px;
     font-size: clamp(17px, 1.55vw, 27px);
@@ -1953,10 +2021,6 @@
 
   .photographyDetails {
     margin-top: 4vh;
-  }
-
-  .photographyCamera {
-    inset-block-end: -34vh;
   }
 
 }

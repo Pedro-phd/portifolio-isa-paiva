@@ -104,8 +104,8 @@ function FoodGallerySection({ id, label, folder, images }) {
               src={`${FOOD_GALLERY_ASSET_ROOT}/${folder}/${image.file}`}
               alt={image.alt}
               fill
-              sizes="(max-width: 849px) 34vw, 19dvh"
-              quality={92}
+              sizes="(max-width: 849px) 34vw, 24vw"
+              quality={100}
               loading="eager"
             />
           </figure>
@@ -527,6 +527,16 @@ export default function FoodPage() {
         aria-labelledby="photography-title"
       >
         <Image
+          className={styles.photographyDesktopScene}
+          src={`${PHOTOGRAPHY_ASSET_ROOT}/camera-desktop-full.png`}
+          alt=""
+          width={1672}
+          height={941}
+          sizes="100vw"
+          loading="eager"
+        />
+
+        <Image
           className={styles.photographyCamera}
           src={`${PHOTOGRAPHY_ASSET_ROOT}/camera.png`}
           alt="Câmera profissional com lente de grande abertura"
@@ -643,6 +653,17 @@ export default function FoodPage() {
         aria-labelledby="site-delivery-title"
       >
         <div className={styles.siteCtaCanvas}>
+          <Image
+            className={styles.siteCtaDesktopScene}
+            src={`${ASSET_ROOT}/site/site-desktop-full.png`}
+            alt=""
+            width={1672}
+            height={941}
+            sizes="(min-width: 850px) 100vw, 1px"
+            loading="eager"
+            unoptimized
+          />
+
           <span className={styles.siteCtaBrand}>paiva&amp;co.</span>
 
           <div className={styles.siteCtaCopy}>
